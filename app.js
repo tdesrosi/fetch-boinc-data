@@ -44,7 +44,7 @@ async function getData() {
             var total_credit = parseFloat(result_string.substring(n + 13, o).replace(',', ''));
             var recent_avg_credit = parseFloat(result_string.substring(o + 13, p).replace(',', ''));
             var estimated_flops = total_credit / 200;
-            var date = new Date().toLocaleDateString('en-US', {year: 'numeric', month: '2-digit', day: '2-digit'});
+            var date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
             var object = new Data({
                 total_credit: total_credit,
                 recent_avg_credit: recent_avg_credit,
@@ -60,8 +60,16 @@ async function getData() {
     });
 }
 
-
+//get data upon program startup
 getData();
+
+//set interval job to get data once every day
+setInterval(() => {
+    getData();
+},
+    1000 * 60 * 60 * 24 //every day, the command is run
+);
+
 
 app.listen(port, () => {
     console.log(`App listening on port: ${port}`);
